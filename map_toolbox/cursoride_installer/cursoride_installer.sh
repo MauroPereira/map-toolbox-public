@@ -3,7 +3,7 @@
 set -e  # Stop execution if an error occurs
 
 # Variables
-URL="https://downloads.cursor.com/production/b6fb41b5f36bda05cab7109606e7404a65d1ff32/linux/x64/Cursor-0.47.9-x86_64.AppImage"
+URL="https://downloads.cursor.com/production/1d623c4cc1d3bb6e0fe4f1d5434b47b958b05876/linux/x64/Cursor-0.48.7-x86_64.AppImage"
 APPIMAGE_FILE="/tmp/Cursor.AppImage"
 INSTALL_PATH="/opt/cursor"
 WRAPPER_PATH="/usr/bin/cursor"
