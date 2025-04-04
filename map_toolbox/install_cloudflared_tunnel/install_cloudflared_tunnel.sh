@@ -12,7 +12,7 @@ fi
 
 # Instalación de Cloudflared
 echo "🛠️ Instalando cloudflared..."
-curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
 
 echo "📦 Instalando el paquete .deb..."
 sudo dpkg -i cloudflared.deb
