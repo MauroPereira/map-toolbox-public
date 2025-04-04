@@ -9,7 +9,7 @@ This repository contains a set of tool scripts that I use on a daily basis to au
 Mauro Alejandro Pereira <mauro.a.pereira@gmail.com>
 
 ## Version
-1.0.2
+1.1.0
 
 ## Available Tools
 
@@ -24,9 +24,17 @@ A script to download and install Cursor AI IDE, creating a desktop shortcut in t
 ### install_cloudfired_tunnel
 Script to install CloudFired tunnel in your system.
 
-**Usage:**
+#### Usage
 ```bash
 ./map_toolbox/install_cloudfired_tunnel/install_cloudfired_tunnel.sh
+```
+
+### install_cloudflared_proxy
+A script to install and configure the Cloudflare DNS proxy client in your system.
+
+#### Usage
+```bash
+./map_toolbox/install_cloudflared_proxy/install_cloudflared_proxy.sh
 ```
 
 ## Contributing
