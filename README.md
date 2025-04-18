@@ -1,4 +1,4 @@
-# MAP Toolbox
+# MAP Toolbox Public
 
 A collection of utility scripts for daily use.
 
@@ -18,7 +18,7 @@ A script to download and install Cursor AI IDE, creating a desktop shortcut in t
 
 #### Usage
 ```bash
-./map_toolbox/cursoride_installer/cursoride_installer.sh
+./map-toolbox-public/cursoride_installer/cursoride_installer.sh
 ```
 
 ### install_cloudfired_tunnel
@@ -26,7 +26,7 @@ Script to install CloudFired tunnel in your system.
 
 #### Usage
 ```bash
-./map_toolbox/install_cloudfired_tunnel/install_cloudfired_tunnel.sh
+./map-toolbox-public/install_cloudfired_tunnel/install_cloudfired_tunnel.sh
 ```
 
 ### install_cloudflared_proxy
@@ -34,7 +34,7 @@ A script to install and configure the Cloudflare DNS proxy client in your system
 
 #### Usage
 ```bash
-./map_toolbox/install_cloudflared_proxy/install_cloudflared_proxy.sh
+./map-toolbox-public/install_cloudflared_proxy/install_cloudflared_proxy.sh
 ```
 
 ## Contributing
