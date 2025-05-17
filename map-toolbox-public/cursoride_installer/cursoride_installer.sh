@@ -2,15 +2,31 @@
 
 set -e  # Stop execution if an error occurs
 
+# Load environment variables from .env file
+if [ -f ".env" ]; then
+    export $(cat .env | grep -v '#' | xargs)
+else
+    echo "❌ Error: .env file not found. Please create one with your CURSOR_APP_KEY"
+    echo "Example .env file content:"
+    echo 'CURSOR_APP_KEY="your-app-key-here"'
+    exit 1
+fi
+
+# Check if CURSOR_APP_KEY is set
+if [ -z "$CURSOR_APP_KEY" ]; then
+    echo "❌ Error: CURSOR_APP_KEY not found in .env file"
+    exit 1
+fi
+
 # Variables
-URL="https://downloads.cursor.com/production/1d623c4cc1d3bb6e0fe4f1d5434b47b958b05876/linux/x64/Cursor-0.48.7-x86_64.AppImage"
 APPIMAGE_FILE="/tmp/Cursor.AppImage"
 INSTALL_PATH="/opt/cursor"
 WRAPPER_PATH="/usr/bin/cursor"
 DESKTOP_FILE="/usr/share/applications/cursor.desktop"
 
 # Download Cursor
-wget --https-only --secure-protocol=auto -O "$APPIMAGE_FILE" "$URL"
+echo "📥 Downloading latest version of Cursor..."
+wget --https-only --secure-protocol=auto -O "$APPIMAGE_FILE" "https://dl.todesktop.com/${CURSOR_APP_KEY}/versions/latest/linux"
 
 # Create installation directory if not exists
 sudo mkdir -p "$INSTALL_PATH"
@@ -21,7 +37,7 @@ sudo mv "$APPIMAGE_FILE" "$INSTALL_PATH/Cursor.AppImage"
 
 # Create wrapper script in /usr/bin
 sudo bash -c "echo '#!/bin/bash' > $WRAPPER_PATH"
-sudo bash -c "echo 'exec $INSTALL_PATH/Cursor.AppImage --no-sandbox "\$@" > /dev/null 2>&1 & disown' >> $WRAPPER_PATH"
+sudo bash -c "echo 'exec $INSTALL_PATH/Cursor.AppImage --no-sandbox \"\$@\" > /dev/null 2>&1 & disown' >> $WRAPPER_PATH"
 sudo chmod +x "$WRAPPER_PATH"
 
 # Install libfuse2 if necessary
