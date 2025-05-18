@@ -2,19 +2,29 @@
 
 set -e  # Stop execution if an error occurs
 
-# Load environment variables from .env file
-if [ -f ".env" ]; then
-    export $(cat .env | grep -v '#' | xargs)
-else
-    echo "❌ Error: .env file not found. Please create one with your CURSOR_APP_KEY"
-    echo "Example .env file content:"
-    echo 'CURSOR_APP_KEY="your-app-key-here"'
+# Get the directory where the script is located
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+echo "🔍 Script directory: $SCRIPT_DIR"
+
+# Function to clean up on exit
+cleanup() {
+    if [ -f "$APPIMAGE_FILE" ]; then
+        rm -f "$APPIMAGE_FILE"
+    fi
+}
+
+# Set up trap for cleanup
+trap cleanup EXIT
+
+# Check if running as root
+if [ "$EUID" -eq 0 ]; then
+    echo "❌ Error: Please do not run this script as root"
     exit 1
 fi
 
-# Check if CURSOR_APP_KEY is set
-if [ -z "$CURSOR_APP_KEY" ]; then
-    echo "❌ Error: CURSOR_APP_KEY not found in .env file"
+# Check if user has sudo privileges
+if ! sudo -v &>/dev/null; then
+    echo "❌ Error: User does not have sudo privileges"
     exit 1
 fi
 
@@ -23,10 +33,22 @@ APPIMAGE_FILE="/tmp/Cursor.AppImage"
 INSTALL_PATH="/opt/cursor"
 WRAPPER_PATH="/usr/bin/cursor"
 DESKTOP_FILE="/usr/share/applications/cursor.desktop"
+DOWNLOAD_URL="https://downloads.cursor.com/production/8ea935e79a50a02da912a034bbeda84a6d3d355d/linux/x64/Cursor-0.50.4-x86_64.AppImage"
+
+# Check for required dependencies
+echo "🔍 Checking dependencies..."
+if ! command -v wget &> /dev/null; then
+    echo "❌ Error: wget is not installed"
+    exit 1
+fi
 
 # Download Cursor
 echo "📥 Downloading latest version of Cursor..."
-wget --https-only --secure-protocol=auto -O "$APPIMAGE_FILE" "https://dl.todesktop.com/${CURSOR_APP_KEY}/versions/latest/linux"
+if ! wget --https-only --secure-protocol=auto -O "$APPIMAGE_FILE" "$DOWNLOAD_URL"; then
+    echo "❌ Error: Failed to download Cursor"
+    echo "Please check your internet connection and try again"
+    exit 1
+fi
 
 # Create installation directory if not exists
 sudo mkdir -p "$INSTALL_PATH"
@@ -42,11 +64,13 @@ sudo chmod +x "$WRAPPER_PATH"
 
 # Install libfuse2 if necessary
 if ! dpkg -s libfuse2 &> /dev/null; then
+    echo "📦 Installing libfuse2..."
     sudo apt-get update
     sudo apt-get install -y libfuse2
 fi
 
 # Create a desktop shortcut for Ubuntu
+echo "📝 Creating desktop shortcut..."
 echo "[Desktop Entry]" | sudo tee "$DESKTOP_FILE" > /dev/null
 echo "Name=Cursor" | sudo tee -a "$DESKTOP_FILE" > /dev/null
 echo "Exec=$WRAPPER_PATH" | sudo tee -a "$DESKTOP_FILE" > /dev/null
