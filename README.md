@@ -9,7 +9,7 @@ This repository contains a set of tool scripts that I use on a daily basis to au
 Mauro Alejandro Pereira <mauro.a.pereira@gmail.com>
 
 ## Version
-1.3.0
+1.3.1
 
 ## Available Tools
 
