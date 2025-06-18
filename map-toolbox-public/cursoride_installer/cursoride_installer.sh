@@ -33,7 +33,7 @@ APPIMAGE_FILE="/tmp/Cursor.AppImage"
 INSTALL_PATH="/opt/cursor"
 WRAPPER_PATH="/usr/bin/cursor"
 DESKTOP_FILE="/usr/share/applications/cursor.desktop"
-DOWNLOAD_URL="https://downloads.cursor.com/production/53b99ce608cba35127ae3a050c1738a959750865/linux/x64/Cursor-1.0.0-x86_64.AppImage"
+DOWNLOAD_URL="https://downloads.cursor.com/production/979ba33804ac150108481c14e0b5cb970bda3266/linux/x64/Cursor-1.1.3-x86_64.AppImage"
 
 # Check for required dependencies
 echo "🔍 Checking dependencies..."
