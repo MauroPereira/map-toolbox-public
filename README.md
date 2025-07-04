@@ -9,7 +9,7 @@ This repository contains a set of tool scripts that I use on a daily basis to au
 Mauro Alejandro Pereira <mauro.a.pereira@gmail.com>
 
 ## Version
-1.6.0
+1.7.0
 
 ## Available Tools
 
@@ -19,6 +19,12 @@ A script to download and install Cursor AI IDE, creating a desktop shortcut in t
 #### Usage
 ```bash
 ./map-toolbox-public/cursoride_installer/cursoride_installer.sh
+```
+
+#### Options
+```bash
+./map-toolbox-public/cursoride_installer/cursoride_installer.sh --help
+./map-toolbox-public/cursoride_installer/cursoride_installer.sh --only-menu-access
 ```
 
 ### install_cloudfired_tunnel
