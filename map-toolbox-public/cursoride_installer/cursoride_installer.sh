@@ -63,8 +63,26 @@ INSTALL_PATH="/opt/cursor"
 WRAPPER_PATH="/usr/bin/cursor"
 DESKTOP_FILE="/usr/share/applications/cursor.desktop"
 ICON_DEST="/usr/share/icons/hicolor/128x128/apps/cursor.png"
-DOWNLOAD_URL="https://downloads.cursor.com/production/031e7e0ff1e2eda9c1a0f5df67d44053b059c5df/linux/x64/Cursor-1.2.1-x86_64.AppImage"
 EXTRACT_DIR="/tmp/cursor_extracted"
+
+# Read DOWNLOAD_URL from file
+if [ -f "$SCRIPT_DIR/url_link.txt" ]; then
+    DOWNLOAD_URL=$(cat "$SCRIPT_DIR/url_link.txt" | tr -d '\n\r')
+    echo "📋 Using URL from url_link.txt: $DOWNLOAD_URL"
+else
+    echo "❌ Error: url_link.txt file not found"
+    echo "Please create a url_link.txt file with the Cursor download URL"
+    echo "Example content:"
+    echo "https://downloads.cursor.com/production/031e7e0ff1e2eda9c1a0f5df67d44053b059c5df/linux/x64/Cursor-1.2.1-x86_64.AppImage"
+    exit 1
+fi
+
+# Validate URL format
+if [[ ! "$DOWNLOAD_URL" =~ ^https?://.* ]]; then
+    echo "❌ Error: Invalid URL format in url_link.txt"
+    echo "URL must start with http:// or https://"
+    exit 1
+fi
 
 # Check for required dependencies
 echo "🔍 Checking dependencies..."
