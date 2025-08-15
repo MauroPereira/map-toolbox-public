@@ -9,7 +9,7 @@ This repository contains a set of tool scripts that I use on a daily basis to au
 Mauro Alejandro Pereira <mauro.a.pereira@gmail.com>
 
 ## Version
-1.9.0
+2.0.0
 
 ## Available Tools
 
@@ -41,6 +41,14 @@ A script to install and configure the Cloudflare DNS proxy client in your system
 #### Usage
 ```bash
 ./map-toolbox-public/install_cloudflared_proxy/install_cloudflared_proxy.sh
+```
+
+### gemini-cli-installer
+This script install brew and later gemini-cli.
+
+#### Usage
+```bash
+./map-toolbox-public/install-gemini-cli/gemini-cli-installer.sh
 ```
 
 ## Contributing
